@@ -96,20 +96,13 @@ function App() {
   return (
     <div className="app">
       <div className="quote-container">
-        <h1 className="title">Random Quote Generator</h1>
-        
-        <div className="controls">
+        <div className="header">
+          <h1 className="title">Random Quote Generator</h1>
           <button 
-            className={`control-btn ${showFavorites ? 'active' : ''}`}
+            className={`view-toggle-btn ${showFavorites ? 'active' : ''}`}
             onClick={() => setShowFavorites(!showFavorites)}
           >
-            ❤️ Favorites ({favorites.length})
-          </button>
-          <button 
-            className={`control-btn ${autoRefresh ? 'active' : ''}`}
-            onClick={() => setAutoRefresh(!autoRefresh)}
-          >
-            ⏱️ Auto {autoRefresh ? `(${countdown}s)` : 'Off'}
+            {showFavorites ? '📝 Show Quotes' : `❤️ Favorites (${favorites.length})`}
           </button>
         </div>
 
@@ -142,39 +135,50 @@ function App() {
             
             {quote && !loading && (
               <div className="quote-content">
-                <div className="quote-text">
-                  <span className="quote-mark">"</span>
-                  {quote.quote}
-                  <span className="quote-mark">"</span>
+                <div className="quote-display">
+                  <div className="quote-text">
+                    <span className="quote-mark">"</span>
+                    {quote.quote}
+                    <span className="quote-mark">"</span>
+                  </div>
+                  <div className="quote-author">— {quote.author}</div>
                 </div>
-                <div className="quote-author">— {quote.author}</div>
                 
-                <div className="action-buttons">
+                <div className="side-actions">
                   <button 
-                    className="action-btn copy-btn"
+                    className="action-btn icon-btn copy-btn"
                     onClick={copyToClipboard}
                     title="Copy to clipboard"
                   >
-                    {copied ? '✓ Copied!' : '📋 Copy'}
+                    {copied ? '✓' : '📋'}
                   </button>
                   <button 
-                    className={`action-btn favorite-btn ${favorites.some(fav => fav.id === quote.id) ? 'favorited' : ''}`}
+                    className={`action-btn icon-btn favorite-btn ${favorites.some(fav => fav.id === quote.id) ? 'favorited' : ''}`}
                     onClick={toggleFavorite}
                     title={favorites.some(fav => fav.id === quote.id) ? 'Remove from favorites' : 'Add to favorites'}
                   >
-                    {favorites.some(fav => fav.id === quote.id) ? '❤️ Favorited' : '🤍 Favorite'}
+                    {favorites.some(fav => fav.id === quote.id) ? '❤️' : '🤍'}
                   </button>
                 </div>
               </div>
             )}
             
-            <button 
-              className="new-quote-btn" 
-              onClick={fetchQuote}
-              disabled={loading}
-            >
-              {loading ? 'Loading...' : 'New Quote'}
-            </button>
+            <div className="bottom-controls">
+              <button 
+                className="new-quote-btn" 
+                onClick={fetchQuote}
+                disabled={loading}
+              >
+                {loading ? 'Loading...' : '🔄 New Quote'}
+              </button>
+              <button 
+                className={`auto-refresh-btn ${autoRefresh ? 'active' : ''}`}
+                onClick={() => setAutoRefresh(!autoRefresh)}
+                disabled={loading}
+              >
+                {autoRefresh ? `⏱️ ${countdown}s` : '⏱️ Auto'}
+              </button>
+            </div>
           </>
         )}
       </div>

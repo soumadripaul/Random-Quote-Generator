@@ -68,9 +68,8 @@
 }
 
 .title {
-  text-align: center;
   color: #ffffff;
-  margin-bottom: 50px;
+  margin: 0;
   font-size: 2.8rem;
   font-weight: 800;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -81,12 +80,63 @@
   background-clip: text;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.view-toggle-btn {
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+}
+
+.view-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.view-toggle-btn.active {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
 .quote-content {
   margin: 30px 0;
-  min-height: 200px;
+  min-height: 250px;
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.quote-display {
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.side-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-left: 20px;
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .quote-text {
@@ -208,58 +258,68 @@
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Controls */
-.controls {
+/* Bottom Controls */
+.bottom-controls {
   display: flex;
   gap: 15px;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-top: 40px;
 }
 
-.control-btn {
-  padding: 12px 24px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 25px;
+.auto-refresh-btn {
+  padding: 14px 30px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
 }
 
-.control-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: translateY(-2px);
-}
-
-.control-btn.active {
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+.auto-refresh-btn:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4),
+              inset 0 1px 0 rgba(255, 255, 255, 0.6);
   border-color: rgba(255, 255, 255, 0.5);
-  color: #ffffff;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
 }
 
-/* Action Buttons */
-.action-buttons {
+.auto-refresh-btn.active {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.auto-refresh-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Icon Action Buttons */
+.icon-btn {
+  width: 55px;
+  height: 55px;
+  padding: 0;
+  font-size: 1.5rem;
   display: flex;
-  gap: 12px;
+  align-items: center;
   justify-content: center;
-  margin-top: 30px;
-  flex-wrap: wrap;
+  border-radius: 50%;
 }
 
 .action-btn {
-  padding: 10px 20px;
   font-size: 0.9rem;
   font-weight: 600;
-  color: #1e3a8a;
-  background: rgba(255, 255, 255, 0.9);
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -274,14 +334,32 @@
   background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
 }
 
+.copy-btn {
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  color: #ffffff;
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+.copy-btn:hover {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+.favorite-btn {
+  background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+  color: #ffffff;
+  border-color: rgba(236, 72, 153, 0.5);
+}
+
 .favorite-btn:hover {
-  background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+  background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+  box-shadow: 0 6px 20px rgba(236, 72, 153, 0.5);
 }
 
 .favorite-btn.favorited {
-  background: linear-gradient(135deg, #f9a8d4 0%, #f472b6 100%);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.5);
+  background: linear-gradient(135deg, #be185d 0%, #9f1239 100%);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 6px 20px rgba(190, 24, 93, 0.6);
 }
 
 /* Favorites List */
@@ -386,18 +464,34 @@
     padding: 40px 25px;
   }
 
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 30px;
+  }
+
   .title {
     font-size: 2.2rem;
-    margin-bottom: 35px;
+    text-align: center;
   }
 
-  .controls {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .control-btn {
+  .view-toggle-btn {
     width: 100%;
+    justify-content: center;
+  }
+
+  .quote-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .side-actions {
+    flex-direction: row;
+    border-left: none;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+    padding-left: 0;
+    padding-top: 20px;
+    justify-content: center;
   }
 
   .quote-text {
@@ -413,17 +507,15 @@
     font-size: 1.1rem;
   }
 
-  .action-buttons {
+  .bottom-controls {
     flex-direction: column;
     gap: 10px;
   }
 
-  .action-btn {
+  .new-quote-btn,
+  .auto-refresh-btn {
     width: 100%;
-  }
-
-  .new-quote-btn {
-    padding: 15px 35px;
+    padding: 15px 30px;
     font-size: 1rem;
   }
 
